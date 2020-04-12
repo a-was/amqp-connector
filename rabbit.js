@@ -35,6 +35,10 @@ class Rabbit {
             console.error(error)
         }
     }
+
+    close() {
+        this.connection.close()
+    }
 }
 
 module.exports = Rabbit
