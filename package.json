@@ -4,11 +4,18 @@
   "description": "Easy in use class for RabbitMQ service",
   "main": "rabbit.js",
   "types": "rabbit.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/a-wasilewski/easy-rabbitmq.git"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Adam Wasilewski <adam.wasilewski@unix.com.pl>",
   "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/a-wasilewski/easy-rabbitmq/issues"
+  },
   "dependencies": {
     "amqplib": "^0.5.5"
   }
