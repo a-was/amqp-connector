@@ -1,5 +1,3 @@
-export as namespace AMQPConnectorNS
-
 export class AMQPConnector {
     constructor(uri: string, queue: string)
 
