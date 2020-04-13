@@ -43,4 +43,4 @@ class AMQPConnector {
     }
 }
 
-module.exports = AMQPConnector
+module.exports.AMQPConnector = AMQPConnector
