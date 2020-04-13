@@ -1,6 +1,6 @@
-export as namespace MyRabbitConnection
+export as namespace AMQPConnectorNS
 
-export class Rabbit {
+export class AMQPConnector {
     constructor(uri: string, queue: string)
 
     public send(message: string): void
