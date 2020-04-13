@@ -14,6 +14,9 @@ class AMQPConnector {
                 this.channel = ch
                 this.channel.assertQueue(this.queue, { durable: true })
             })
+            .catch(function (err) {
+                console.error(err)
+            })
     }
 
     receive(callback) {
