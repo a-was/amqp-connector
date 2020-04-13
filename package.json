@@ -1,20 +1,17 @@
 {
-  "name": "easy-rabbitmq",
-  "version": "1.1.0",
-  "description": "Easy in use class for RabbitMQ service",
+  "name": "amqp-connector",
+  "version": "2.0.0",
+  "description": "Easy in use class for AMQP connection",
   "main": "index.js",
   "types": "index.d.ts",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/a-wasilewski/easy-rabbitmq.git"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "url": "git+https://github.com/a-wasilewski/amqp-connector.git"
   },
   "author": "Adam Wasilewski <adam.wasilewski@unix.com.pl>",
-  "license": "UNLICENSED",
+  "license": "ISC",
   "bugs": {
-    "url": "https://github.com/a-wasilewski/easy-rabbitmq/issues"
+    "url": "https://github.com/a-wasilewski/amqp-connector/issues"
   },
   "dependencies": {
     "amqplib": "^0.5.5"
