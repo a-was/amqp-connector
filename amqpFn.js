@@ -5,6 +5,7 @@ var amqpConnector = function (uri, queue) {
 
     this.uri = uri
     this.queue = queue
+    this.connected = false
 
     amqp.connect(this.uri)
         .then((conn) => {
@@ -15,36 +16,59 @@ var amqpConnector = function (uri, queue) {
             this.channel = ch
             this.channel.assertQueue(this.queue, { durable: true })
         })
+        .then(() => {
+            this.connected = true
+        })
         .catch(function (err) {
             console.error(err)
         })
 
-    function defaultCallback(message) { console.log(message) }
-
-    exports.receive = (callback = this.defaultCallback) => {
-        try {
-            this.channel.consume(this.queue, (message) => {
-                if (message != null) {
-                    callback(message.content.toString())
-                    this.channel.ack(message)
+    function _checkReady() {
+        return new Promise((resolve, reject) => {
+            var start = Date.now()
+            var interval = setInterval(() => {
+                if (this.connected === true) {
+                    clearInterval(interval)
+                    resolve()
+                } else if (Date.now() - start > 5000) {
+                    reject(new Error('Connection timed out'))
                 }
-            }, { noAck: false })
-        } catch (error) {
-            console.error(error)
-        }
+            }, 20)
+        })
+    }
+
+    function _defaultCallback(message) { console.log(message) }
+
+    exports.receive = (callback = _defaultCallback) => {
+        _checkReady().then(() => {
+            try {
+                this.channel.consume(this.queue, (message) => {
+                    if (message != null) {
+                        callback(message.content.toString())
+                        this.channel.ack(message)
+                    }
+                }, { noAck: false })
+            } catch (error) {
+                console.error(error)
+            }
+        })
     }
 
     exports.send = (message) => {
-        try {
-            this.channel.sendToQueue(this.queue, Buffer.from(message), { persistent: true })
-        } catch (error) {
-            console.error(error)
-        }
+        _checkReady().then(() => {
+            try {
+                this.channel.sendToQueue(this.queue, Buffer.from(message), { persistent: true })
+            } catch (error) {
+                console.error(error)
+            }
+        })
     }
 
     exports.close = () => {
-        this.channel.close()
-        this.connection.close()
+        _checkReady().then(() => {
+            this.channel.close()
+            this.connection.close()
+        })
     }
 
     return exports
