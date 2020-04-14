@@ -65,10 +65,12 @@ class AMQPConnector {
     }
 
     close() {
-        this._checkReady().then(() => {
-            this.channel.close()
-            this.connection.close()
-        })
+        setTimeout(() => {
+            this._checkReady().then(() => {
+                this.channel.close()
+                this.connection.close()
+            })
+        }, 50)
     }
 }
 

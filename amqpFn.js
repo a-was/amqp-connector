@@ -65,10 +65,12 @@ var amqpConnector = function (uri, queue) {
     }
 
     exports.close = () => {
-        _checkReady().then(() => {
-            this.channel.close()
-            this.connection.close()
-        })
+        setTimeout(() => {
+            _checkReady().then(() => {
+                this.channel.close()
+                this.connection.close()
+            })
+        }, 50)
     }
 
     return exports
