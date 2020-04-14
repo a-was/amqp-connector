@@ -50,8 +50,4 @@ var amqpConnector = function (uri, queue) {
     return exports
 }
 
-<<<<<<< HEAD
-module.exports.amqpConnector = amqpConnector
-=======
 module.exports = amqpConnector
->>>>>>> _checkReady
