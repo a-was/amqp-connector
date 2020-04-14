@@ -15,8 +15,18 @@ var amqpConnector = function (uri, queue) {
             this.channel = ch
             this.channel.assertQueue(this.queue, { durable: true })
         })
+<<<<<<< HEAD
 
     exports.receive = (callback) => {
+=======
+        .catch(function (err) {
+            console.error(err)
+        })
+
+    function defaultCallback(message) { console.log(message) }
+
+    exports.receive = (callback = this.defaultCallback) => {
+>>>>>>> _checkReady
         try {
             this.channel.consume(this.queue, (message) => {
                 if (message != null) {
@@ -45,4 +55,8 @@ var amqpConnector = function (uri, queue) {
     return exports
 }
 
+<<<<<<< HEAD
 module.exports.amqpConnector = amqpConnector
+=======
+module.exports = amqpConnector
+>>>>>>> _checkReady

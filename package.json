@@ -1,6 +1,6 @@
 {
   "name": "amqp-connector",
-  "version": "2.0.0",
+  "version": "2.0.2",
   "description": "Easy in use class for AMQP connection",
   "main": "index.js",
   "types": "index.d.ts",
