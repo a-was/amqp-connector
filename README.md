@@ -5,7 +5,7 @@ Easy in use class for making AMQP connections in node.
 Of course you need AMQP server for this to work. I recommend [RabbitMQ](https://www.rabbitmq.com/)
 
 ### Installation:
-`npm install a-wasilewski/amqp-connector`
+`npm install a-was/amqp-connector`
 
 ### Usage:
 

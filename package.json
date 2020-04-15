@@ -1,17 +1,17 @@
 {
   "name": "amqp-connector",
   "version": "1.1.1",
-  "description": "Easy in use class for AMQP connection",
+  "description": "Easy in use class/function for AMQP connection",
   "main": "index.js",
   "types": "index.d.ts",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/a-wasilewski/amqp-connector.git"
+    "url": "git+https://github.com/a-was/amqp-connector.git"
   },
   "author": "Adam Wasilewski <adam.wasilewski@unix.com.pl>",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/a-wasilewski/amqp-connector/issues"
+    "url": "https://github.com/a-was/amqp-connector/issues"
   },
   "keywords": ["AMQP", "RabbitMQ"],
   "dependencies": {
