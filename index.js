@@ -1,29 +1,29 @@
 const amqp = require('amqplib')
 
-class AMQPConnector {
-    constructor(uri, queue) {
-        this.uri = uri
-        this.queue = queue
-        this.connected = false
+var amqpConnector = function (uri, queue) {
+    var exports = {}
 
-        amqp.connect(uri)
-            .then((conn) => {
-                this.connection = conn
-                return this.connection.createChannel()
-            })
-            .then((ch) => {
-                this.channel = ch
-                this.channel.assertQueue(this.queue, { durable: true })
-            })
-            .then(() => {
-                this.connected = true
-            })
-            .catch(function (err) {
-                console.error(err)
-            })
-    }
+    this.uri = uri
+    this.queue = queue
+    this.connected = false
 
-    _checkReady() {
+    amqp.connect(this.uri)
+        .then((conn) => {
+            this.connection = conn
+            return this.connection.createChannel()
+        })
+        .then((ch) => {
+            this.channel = ch
+            this.channel.assertQueue(this.queue, { durable: true })
+        })
+        .then(() => {
+            this.connected = true
+        })
+        .catch(function (err) {
+            console.error(err)
+        })
+
+    function _checkReady() {
         return new Promise((resolve, reject) => {
             var start = Date.now()
             var interval = setInterval(() => {
@@ -37,10 +37,10 @@ class AMQPConnector {
         })
     }
 
-    _defaultCallback(message) { console.log(message) }
+    function _defaultCallback(message) { console.log(message) }
 
-    receive(callback = this._defaultCallback) {
-        this._checkReady().then(() => {
+    exports.receive = (callback = _defaultCallback) => {
+        _checkReady().then(() => {
             try {
                 this.channel.consume(this.queue, (message) => {
                     if (message != null) {
@@ -54,8 +54,8 @@ class AMQPConnector {
         })
     }
 
-    send(message) {
-        this._checkReady().then(() => {
+    exports.send = (message) => {
+        _checkReady().then(() => {
             try {
                 this.channel.sendToQueue(this.queue, Buffer.from(message), { persistent: true })
             } catch (error) {
@@ -64,14 +64,16 @@ class AMQPConnector {
         })
     }
 
-    close() {
+    exports.close = () => {
         setTimeout(() => {
-            this._checkReady().then(() => {
+            _checkReady().then(() => {
                 this.channel.close()
                 this.connection.close()
             })
-        }, 50)
+        }, 200)
     }
+
+    return exports
 }
 
-module.exports.AMQPConnector = AMQPConnector
+module.exports = amqpConnector
