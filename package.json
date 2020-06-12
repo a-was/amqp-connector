@@ -8,7 +8,7 @@
     "type": "git",
     "url": "git+https://github.com/a-was/amqp-connector.git"
   },
-  "author": "Adam Wasilewski <adam.wasilewski@unix.com.pl>",
+  "author": "Adam Wasilewski",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/a-was/amqp-connector/issues"
